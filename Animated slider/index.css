@@ -1,0 +1,74 @@
+/* reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;  
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* soft gradient background */
+  font-family: Arial, sans-serif;
+}
+
+/* container */
+.container {
+  display: flex;
+  gap: 15px;
+  width: 90%;
+  max-width: 1200px;
+  height: 80vh; /* thoda kam height for better look */
+}
+
+/* panels */
+.panel {
+  flex: 1;
+  height: 100%;
+  background-size: cover;        
+  background-position: center;   
+  border-radius: 25px;
+  cursor: pointer;
+  position: relative;
+  transition: flex 0.8s ease-in-out, border-radius 0.5s ease-in-out;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+/* overlay text (optional if you want captions later) */
+/* .panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+} */
+
+.panel:hover::after {
+  opacity: 1;
+}
+
+.panel.active {
+  flex: 5; /* expand */
+  border-radius: 35px;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .panel {
+    flex: none;
+    height: 200px;
+  }
+
+  .panel.active {
+    height: 350px;
+  }
+}
