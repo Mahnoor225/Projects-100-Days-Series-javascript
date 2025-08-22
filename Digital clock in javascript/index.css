@@ -1,0 +1,124 @@
+/* ====== Reset & Base ====== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --bg1: #0f0c29;
+  --bg2: #302b63;
+  --bg3: #24243e;
+  --glass: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.18);
+  --text: #eaf2ff;
+  --accent: #6ee7ff;
+  --accent-2: #a78bfa;
+}
+
+/* Optional Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+html, body { height: 100%; }
+body{
+  font-family: 'Outfit', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3));
+  background-size: 300% 300%;
+  animation: bgShift 15s ease infinite;
+}
+
+/* ====== Layout ====== */
+.container{
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+/* ====== Clock Card ====== */
+.clock{
+  width: clamp(260px, 70vw, 720px);
+  padding: clamp(18px, 4vw, 36px);
+  border-radius: 24px;
+  background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid var(--border);
+  box-shadow:
+    0 8px 30px rgba(0,0,0,0.35),
+    inset 0 0 0 1px rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+/* Big digital time */
+#digital{
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 2px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text);
+  text-shadow:
+    0 0 10px rgba(110,231,255,0.35),
+    0 0 22px rgba(167,139,250,0.25);
+  /* Responsive fluid font-size */
+  font-size: clamp(36px, 8vw, 88px);
+  line-height: 1.1;
+}
+
+/* Optional small label under time (if you add date/day etc.) */
+.clock .sub{
+  font-size: clamp(12px, 2.6vw, 16px);
+  font-weight: 400;
+  opacity: 0.85;
+  letter-spacing: 1px;
+}
+
+/* Glow ring decoration */
+.clock::before{
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 26px;
+  padding: 2px;
+  background:
+    linear-gradient(135deg, rgba(110,231,255,0.45), rgba(167,139,250,0.45));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  filter: blur(4px);
+  opacity: .55;
+}
+
+/* Make the colon subtly pulse if present in your time string */
+#digital .colon{
+  display: inline-block;
+  animation: blink 1.2s steps(1, end) infinite;
+}
+
+/* Hover effect */
+.clock:hover{
+  transform: translateY(-2px);
+  transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+/* ====== Media tweaks ====== */
+@media (max-width: 420px){
+  .clock{ border-radius: 20px; }
+}
+
+/* ====== Animations ====== */
+@keyframes bgShift{
+  0%{ background-position: 0% 50%; }
+  50%{ background-position: 100% 50%; }
+  100%{ background-position: 0% 50%; }
+}
+
+@keyframes blink{
+  0%, 49%{ opacity: 1; }
+  50%, 100%{ opacity: .2; }
+}
